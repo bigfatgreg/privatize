@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.description   = %q{This gem pixilates images using rmagick.}
   spec.homepage      = "https://github.com/bigfatgreg/privatize"
 
-  spec.files         = Dir.glob("spec/**/*") #.select { |f| f.match(/spec\.rb$/) } 
+  spec.files         = Dir.glob("spec/**/*")
   spec.bindir        = "bin"
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
