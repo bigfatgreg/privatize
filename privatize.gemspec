@@ -12,8 +12,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["rob allen"]
   spec.email         = ["rob.all3n@gmail"]
 
-  spec.summary       = %q{This gem 'privatizes' images.}
-  spec.description   = %q{This gem pixilates images using rmagick.}
+  spec.summary       = %q{Privatize!}
+  spec.description   = %q{This gem obfuscates images.}
   spec.homepage      = "https://github.com/bigfatgreg/privatize"
 
   spec.files         = Dir.glob("**/*rb") #.select { |f| f.match(/spec\.rb$/) } 
