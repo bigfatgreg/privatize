@@ -1,0 +1,56 @@
+#!/usr/bin/env ruby
+$:.unshift(File.expand_path('../../lib', __FILE__))
+
+require 'privatize'
+require 'optparse'
+
+options = {}
+parser = OptionParser.new do |opts|
+  opts.banner = "Usage: privatize -i PATH [options] OUTPUT"
+
+  opts.on("-i", "--input PATH", "the PATH to the file you want to alter.") do |path|
+    options[:path] = path
+  end
+
+  opts.on("-e", "--effect EFFECT", "the effect to use on your image. this defaults to 'pixelate'.") do |effect|
+    options[:effect] = effect || "pixelate"
+  end
+
+  opts.on("-l", "--level LEVEL", "this dictates the intensity of the alteration. it must be a number between 1 and 100") do |level|
+    options[:level] = level
+  end
+end
+
+begin
+  parser.parse!
+
+  mandatory = [:path]
+  missing = mandatory.select{ |param| options[param].nil? }
+  unless missing.empty?                                            
+    puts "\nMissing options: #{missing.join(', ')}"                  
+    puts parser, "\n"                                                 
+    exit                                                           
+  end                                                              
+
+  errors = []
+  case
+  when options[:level] && options[:level].to_i < 1 || options[:level].to_i > 100
+    errors << "Error: the level must be between 1 and 100\n\n"
+  end
+
+  unless errors.empty?                                            
+    errors.map { |e| puts "\n#{e}" }
+    puts parser, "\n"                                                 
+    exit                                                           
+  end                                                                
+
+rescue OptionParser::InvalidOption, OptionParser::MissingArgument  
+  puts $!.to_s                                                     
+  puts parser, "\n"                                                 
+  exit                                                             
+end                                                                
+
+@effect = options[:effect] || "pixelate"
+@output = ARGV[0] || Dir.pwd
+@image  = Privatize.const_get(@effect.capitalize).new(options[:path], { output: @output })
+@image.process!(options[:level]) 

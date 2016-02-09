@@ -1,0 +1,19 @@
+PATH
+  remote: .
+  specs:
+    privatize (0.1.0)
+      mini_magick
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    mini_magick (4.3.6)
+    rake (10.4.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 1.9)
+  privatize!
+  rake (~> 10.0)
